@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,103 +26,60 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Icon _heart =
-      Icon(Icons.favorite_border, color: Color.fromARGB(255, 130, 181, 223));
-  bool _isLike = false;
-  int _selectedIndex = 0;
-  String textToVizualize = 'index0';
-
-  void liked() {
-    setState(() {
-      if (_isLike) {
-        _heart = Icon(Icons.favorite_border,
-            color: const Color.fromARGB(255, 130, 181, 223));
-        _isLike = !_isLike;
-      } else {
-        _heart = Icon(Icons.favorite, color: Colors.red);
-        _isLike = !_isLike;
-      }
-    });
-  }
-
-  void pullsedItem(int index) {
-    setState(() {
-      _selectedIndex = index;
-      switch (index) {
-        case 0:
-          textToVizualize = 'index0';
-          break;
-        case 1:
-          textToVizualize = 'index1';
-          break;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title!),
-        actions: [
-          IconButton(
-            icon: _heart,
-            onPressed: () {
-              liked();
-            },
+    return CupertinoTabScaffold(tabBar: CupertinoTabBar(
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:1001647877.
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: "Home",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: "Search"
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3584355990.
           ),
-        ],
-      ),
-      drawer: Drawer(
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:4120865583.
-        child: Column(
-          children: [
-            DrawerHeader(child: Text("Menu Drawer",style: TextStyle(color: Colors.red,fontSize: 25,fontWeight: FontWeight.bold),)),
-            ListTile(
-              title: Text("Item 1"),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text("Item 2"),
-              onTap: () {},
-            ),
-          ]
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: "Profile"
         )
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          liked();
-        },
-        backgroundColor: Colors.deepPurple,
-        icon: _heart,
-        label: Text("Like..."),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: "Search",
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: (int index) {
-          pullsedItem(index);
-        },
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(
-              textToVizualize,
-              style: TextStyle(fontSize: 20),
+      ]
+    ), tabBuilder: (context, index){
+      switch(index){
+        case 0:
+          return CupertinoTabView(
+            builder: (context) => CupertinoPageScaffold(
+              child: Center(
+                child: Text("Home"),
+              ),
             ),
-          ],
-        )
-      ),
-    );
+          );
+        case 1 :
+          return CupertinoTabView(
+            builder: (context) => CupertinoPageScaffold(
+              child: Center(
+                child: Text("Search"),
+              ),
+            ),
+          );
+        case 2 :
+          return CupertinoTabView(
+            builder: (context) => CupertinoPageScaffold(
+              child: Center(
+                child: Text("Profile"),
+              ),
+            ),
+          );
+        default:
+          return CupertinoTabView(
+            builder: (context) => CupertinoPageScaffold(
+              child: Center(
+                child: Text("Home"),
+              ),
+            ),
+          );
+    }});
   }
 }
