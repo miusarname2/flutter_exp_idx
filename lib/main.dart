@@ -29,57 +29,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(tabBar: CupertinoTabBar(
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1001647877.
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: "Home",
+    return CupertinoPageScaffold(
+      child: Center(
+        child: Column(
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:2903485389.
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Hola mundo',style: TextStyle(decoration: TextDecoration.none,fontSize: 20),)
+          ]
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: "Search"
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3584355990.
-          ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: "Profile"
-        )
-      ]
-    ), tabBuilder: (context, index){
-      switch(index){
-        case 0:
-          return CupertinoTabView(
-            builder: (context) => CupertinoPageScaffold(
-              child: Center(
-                child: Text("Home"),
-              ),
-            ),
-          );
-        case 1 :
-          return CupertinoTabView(
-            builder: (context) => CupertinoPageScaffold(
-              child: Center(
-                child: Text("Search"),
-              ),
-            ),
-          );
-        case 2 :
-          return CupertinoTabView(
-            builder: (context) => CupertinoPageScaffold(
-              child: Center(
-                child: Text("Profile"),
-              ),
-            ),
-          );
-        default:
-          return CupertinoTabView(
-            builder: (context) => CupertinoPageScaffold(
-              child: Center(
-                child: Text("Home"),
-              ),
-            ),
-          );
-    }});
+      ),
+      navigationBar: CupertinoNavigationBar(
+        leading: Icon(Icons.menu),
+        middle: Text('Hola mundo'),
+        trailing: Icon(Icons.search),
+      ),
+    );
   }
 }
