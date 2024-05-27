@@ -28,6 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Icon _heart =
       Icon(Icons.favorite_border, color: Color.fromARGB(255, 130, 181, 223));
   bool _isLike = false;
+  int _selectedIndex = 0;
+  String textToVizualize = 'index0';
 
   void liked() {
     setState(() {
@@ -38,6 +40,20 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         _heart = Icon(Icons.favorite, color: Colors.red);
         _isLike = !_isLike;
+      }
+    });
+  }
+
+  void pullsedItem(int index) {
+    setState(() {
+      _selectedIndex = index;
+      switch (index) {
+        case 0:
+          textToVizualize = 'index0';
+          break;
+        case 1:
+          textToVizualize = 'index1';
+          break;
       }
     });
   }
@@ -56,29 +72,55 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      drawer: Drawer(
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:4120865583.
+        child: Column(
+          children: [
+            DrawerHeader(child: Text("Menu Drawer",style: TextStyle(color: Colors.red,fontSize: 25,fontWeight: FontWeight.bold),)),
+            ListTile(
+              title: Text("Item 1"),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text("Item 2"),
+              onTap: () {},
+            ),
+          ]
+        )
+      ),
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           liked();
         },
         backgroundColor: Colors.deepPurple,
-        child: _heart,
-        //label: Text("Like..."),
+        icon: _heart,
+        label: Text("Like..."),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(onPressed: null, icon: Icon(Icons.home)),
-            IconButton(onPressed: null, icon: Icon(Icons.search)),
-            IconButton(onPressed: null, icon: Icon(Icons.add)),
-            IconButton(onPressed: null, icon: Icon(Icons.notifications))
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: "Search",
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: (int index) {
+          pullsedItem(index);
+        },
       ),
       body: Center(
-        child: Text("Hello World"),
+        child: Column(
+          children: [
+            Text(
+              textToVizualize,
+              style: TextStyle(fontSize: 20),
+            ),
+          ],
+        )
       ),
     );
   }
